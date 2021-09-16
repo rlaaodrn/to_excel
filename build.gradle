@@ -24,14 +24,14 @@ dependencies {
 }
 jar {
     enabled = true
-    archiveFileName = "to-excel.jar"
+    archiveFileName = "lims-to-excel.jar"
 }
 publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = "com.greencross"
-            artifactId = "to-excel"
-            version = 1.2
+            artifactId = "lims-to-excel"
+            version = 1.0
             from components.java
         }
     }
