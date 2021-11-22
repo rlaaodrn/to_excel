@@ -9,7 +9,7 @@ public class DefaultDataFormatDecider implements DataFormatDecider {
 
 	/*private static final String CURRENT_FORMAT = "#,##0";
 	private static final String FLOAT_FORMAT_2_DECIMAL_PLACES = "#,##0.00";*/
-	private static final String CURRENT_FORMAT = "#,##0";
+	private static final String CURRENT_FORMAT = "0_ ";
 	private static final String FLOAT_FORMAT_2_DECIMAL_PLACES = "0_ ";
 	private static final String DEFAULT_FORMAT = "";
 
