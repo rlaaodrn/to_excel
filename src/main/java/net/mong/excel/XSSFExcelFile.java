@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
@@ -17,29 +18,25 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class SXSSFExcelFile<T> implements ExcelFile<T> {
+public abstract class XSSFExcelFile<T> implements ExcelFile<T> {
 
 	protected static final SpreadsheetVersion supplyExcelVersion = SpreadsheetVersion.EXCEL2007;
 
-	protected XSSFWorkbook xwb;
-	protected SXSSFWorkbook wb;
-	protected SXSSFSheet sheet;
+	protected XSSFWorkbook wb;
+	protected XSSFSheet sheet;
 	protected ExcelRenderResource resource;
 
-	public SXSSFExcelFile(Class<T> type) {
+	public XSSFExcelFile(Class<T> type) {
 		this(Collections.emptyList(), type, new DefaultDataFormatDecider());
 	}
 
-	public SXSSFExcelFile(List<T> data, Class<T> type) {
+	public XSSFExcelFile(List<T> data, Class<T> type) {
 		this(data, type, new DefaultDataFormatDecider());
 	}
 
-	public SXSSFExcelFile(List<T> data, Class<T> type, DataFormatDecider dataFormatDecider) {
+	public XSSFExcelFile(List<T> data, Class<T> type, DataFormatDecider dataFormatDecider) {
 		validateData(data);
-		this.wb = new SXSSFWorkbook();
-
-		//this.wb = new SXSSFWorkbook(xwb,10,false,true);
-
+		this.wb = new XSSFWorkbook();
 		this.resource = ExcelRenderResourceFactory.prepareRenderResource(type, wb, dataFormatDecider);
 		renderExcel(data);
 	}
@@ -87,9 +84,8 @@ public abstract class SXSSFExcelFile<T> implements ExcelFile<T> {
 
 	public void write(OutputStream stream) throws IOException {
 		wb.write(stream);
-		stream.flush();
+		wb.close();
 		stream.close();
-		wb.dispose();
 	}
 
 }
